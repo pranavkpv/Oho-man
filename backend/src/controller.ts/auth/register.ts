@@ -11,11 +11,10 @@ export const registerController = async (
 ) => {
    try {
       const parsed = registerSchema.parse(req.body);
-      console.log(parsed);
 
       const user =
          await register(
-            req.body
+            parsed
          );
 
       return res.status(

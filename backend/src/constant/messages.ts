@@ -6,7 +6,8 @@ export const MESSAGE ={
    },
    USER:{
       EXIST:"User Exist",
-      SHORT:"Username must be at least 2 characters"
+      SHORT:"Username must be at least 2 characters",
+      NOTFOUND:"User not found",
    },
    SERVICE:{
       LIST:"Services listed successfully",
@@ -21,5 +22,9 @@ export const MESSAGE ={
    },
    PHONE:{
       INVALID:"Phone number must be valid"
+   },
+   LOGIN:{
+      SUCCESS:"Login successfully",
+      INVALIDCREDENTIAL:"Invalid credentia;"
    }
 }

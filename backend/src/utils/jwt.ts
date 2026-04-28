@@ -1,10 +1,7 @@
 import jwt from "jsonwebtoken";
 import env from "../config/env";
+import { payloadData } from "../dto/data-type";
 
-interface payloadData {
-  userId: string,
-  role: string
-}
 
 export const createAccessToken = (
   payload: payloadData
