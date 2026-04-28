@@ -1,22 +1,30 @@
-export class ApiResponse<T>{
+export class ApiResponse<T> {
+  constructor(
+    public statusCode: number,
+    public success: boolean,
+    public message: string,
+    public data?: T
+  ) { }
 
- constructor(
-   public statusCode:number,
-   public message:string,
-   public data?:T
- ){}
+  static success<T>(
+    res: any,
+    statusCode: number,
+    message: string,
+    data?: T
+  ) {
+    return res.status(statusCode).json(
+      new ApiResponse<T>(statusCode, true, message, data)
+    );
+  }
 
- static success<T>(
-   res:any,
-   message:string,
-   data?:T
- ){
-   return res.status(200).json(
-    new ApiResponse(
-      200,
-      message,
-      data
-    )
-   );
- }
+  static error<T>(
+    res: any,
+    statusCode: number,
+    message: string,
+    data?: T
+  ) {
+    return res.status(statusCode).json(
+      new ApiResponse<T>(statusCode, false, message, data)
+    );
+  }
 }

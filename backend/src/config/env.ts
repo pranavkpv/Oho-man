@@ -17,7 +17,10 @@ const env = {
     process.env.ACCESS_TOKEN_EXPIRES || "15m",
 
   REFRESH_TOKEN_EXPIRES:
-    process.env.REFRESH_TOKEN_EXPIRES || "7d"
+    process.env.REFRESH_TOKEN_EXPIRES || "7d",
+
+  FRONTEND_URL:
+    process.env.FRONTEND_URL
 };
 
 export default env;
