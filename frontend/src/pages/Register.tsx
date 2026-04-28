@@ -20,7 +20,7 @@ import { useRegister } from '@/hooks/useRegister';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 
-export default function RegisterPage() {
+export default function Register() {
 
    const [isProvider, setIsProvider] = useState(false);
    const [selectedServices, setSelectedServices] =

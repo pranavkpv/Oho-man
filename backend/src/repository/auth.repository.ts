@@ -1,15 +1,21 @@
+import { registerData } from "../dto/request";
 import userModel from "../model/user.model";
 
 
-class AuthRepository{
+class AuthRepository {
 
- findByEmail(email:string){
-  return userModel.findOne({email});
- }
+   findByEmail(email: string) {
+      return userModel.findOne({ email });
+   }
 
- createUser(data:any){
-  return userModel.create(data);
- }
+   createUser(data: registerData) {
+      return userModel.create(data);
+   }
+
+   findUserByEmail(email: string) {
+      return userModel.findOne({ email });
+   }
+
 
 }
 

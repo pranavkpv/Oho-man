@@ -14,3 +14,8 @@ export interface registrationData {
    isServiceProvider: boolean
    serviceIds?: string[]
 }
+
+export interface loginData{
+   email:string
+   password:string
+}

@@ -3,8 +3,10 @@ import authRepository from '../../repository/auth.repository';
 import { ROLE, STATUS_CODE } from '../../constant/enum';
 import { MESSAGE } from '../../constant/messages';
 import { ApiError } from '../../utils/ApiError';
+import { registerData } from '../../dto/request';
+import { hashPassword } from '../../utils/password.helper';
 
-export const register = async (data: any) => {
+export const register = async (data: registerData) => {
    const exists =
       await authRepository.findByEmail(
          data.email
@@ -15,11 +17,7 @@ export const register = async (data: any) => {
          MESSAGE.USER.EXIST
       );
    }
-   const hashed =
-      await bcrypt.hash(
-         data.password,
-         10
-      );
+  const hashed = await hashPassword(data.password);
 
    return authRepository.createUser({
       ...data,

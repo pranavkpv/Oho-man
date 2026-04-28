@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { API } from '../constant/api';
 import { registerController } from '../controller.ts/auth/register';
 import { getAllServicesController } from '../controller.ts/service/getService';
+import { loginController } from '../controller.ts/auth/login';
 
 const router = Router();
 
@@ -13,6 +14,11 @@ router.get(
 router.post(
    API.REGISTER,
    registerController
+);
+
+router.post(
+   API.LOGIN,
+   loginController
 );
 
 export default router;

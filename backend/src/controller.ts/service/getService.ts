@@ -3,7 +3,7 @@ import { getAllServices } from '../../services/service/getAll';
 import { MESSAGE } from '../../constant/messages';
 import { ApiResponse } from '../../utils/ApiResponse';
 import { STATUS_CODE } from '../../constant/enum';
-import { getServiceData } from '../../dto/Services';
+import { getServiceData } from '../../dto/response';
 
 export const getAllServicesController = async (
    req: Request,
