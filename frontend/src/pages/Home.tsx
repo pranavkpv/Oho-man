@@ -7,7 +7,7 @@ import {
   setAccessToken
 } from "@/utils/token";
 import ServicesList from "./ServiceList";
-import ProviderDashboard from "./Provider";
+import JobList from "./JobList";
 
 
 type Role = "user" | "provider";
@@ -115,7 +115,7 @@ export default function HomePage() {
       )}
 
       {activeRole === "provider" && (
-        <ProviderDashboard />
+        <JobList />
       )}
 
     </div>

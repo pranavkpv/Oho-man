@@ -40,5 +40,20 @@ export const userRepository = {
         new: true
       }
     );
+  },
+
+  findUserWithServices: async (
+    userId: string
+  ) => {
+    return userModel
+      .findById(userId)
+      .populate({
+        path: "serviceIds",
+        select:
+          "_id serviceName image price"
+      });
+
   }
+
+
 };

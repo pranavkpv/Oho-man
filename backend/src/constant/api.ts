@@ -6,5 +6,7 @@ export const API = {
    USER_BASE:'/api/user',
    USER_BY_SERVICE:'/:serviceId',
    BOOK:'/book',
-   SWITCH_ROLE:'/switch'
+   SWITCH_ROLE:'/switch',
+   PROVIDER_BASE:"/api/provider",
+   JOB:"/job"
 }

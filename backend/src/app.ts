@@ -7,8 +7,9 @@ import { notFound } from "./middleware/notFound.middleware";
 import { API } from "./constant/api";
 
 import authRoute from "./routes/auth.route"
-
 import userRoute from "./routes/user.route"
+import providerRoute from './routes/provider.route'
+
 import env from "./config/env";
 
 const app = express();
@@ -27,6 +28,7 @@ app.use(cookieParser());
 
 app.use(API.AUTH_BASE, authRoute);
 app.use(API.USER_BASE, userRoute)
+app.use(API.PROVIDER_BASE,providerRoute)
 
 app.use(notFound);
 app.use(errorHandler);
