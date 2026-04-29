@@ -15,7 +15,6 @@ export const authMiddleware = (role: string) => {
          }
 
          const decoded: any = decodeToken(token);
-         console.log(decoded)
 
          req.user = decoded;
 
@@ -24,9 +23,9 @@ export const authMiddleware = (role: string) => {
                message: "Not access",
             });
          }
-
          next();
       } catch (err) {
+
          return res.status(401).json({
             message: "Invalid token",
          });

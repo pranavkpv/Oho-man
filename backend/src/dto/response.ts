@@ -21,3 +21,14 @@ export interface getUserData {
    active: boolean
    image?:string | null
 }
+
+export interface getBookingData {
+  _id: Types.ObjectId;
+  providerId:getUserData
+  serviceId:getServiceData
+  userId: Types.ObjectId;
+  amount: number;
+  status: "pending" | "inprogress" | "completed";
+  createdAt: Date;
+  updatedAt: Date;
+}

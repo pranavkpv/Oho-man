@@ -18,3 +18,11 @@ export const BookingServiceAPI = async (data: bookingData) => {
 
    return res.data;
 }
+
+export const GetBookingServiceAPI = async () => {
+   const res = await api.get(
+      API_ENDPOINTS.USER.BOOKING,
+   );
+
+   return res.data;
+}

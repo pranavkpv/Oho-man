@@ -24,6 +24,9 @@ export default function HomePage() {
     if (menu === "Services") {
       setShouldFetchServices(true);
     }
+    if (menu === "My Bookings") {
+      navigate("/bookings");
+    }
   };
 
   return (

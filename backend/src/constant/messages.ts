@@ -29,6 +29,7 @@ export const MESSAGE ={
       INVALIDCREDENTIAL:"Invalid credentia;"
    },
    BOOKING:{
-      CREATED:"Booking created successfully"
+      CREATED:"Booking created successfully",
+      LIST:"Booking data listed successfully"
    }
 }
