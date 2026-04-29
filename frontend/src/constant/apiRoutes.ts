@@ -6,7 +6,8 @@ export const API_ENDPOINTS = {
   },
   USER:{
     BASE: '/user',
-    BOOKING:'/user/book'
+    BOOKING:'/user/book',
+    SWITCH:'/user/switch'
 
   }
 } as const;

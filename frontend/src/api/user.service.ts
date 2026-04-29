@@ -1,6 +1,7 @@
 import { API_ENDPOINTS } from "@/constant/apiRoutes";
 import api from "./axios";
 import { bookingData } from "@/types/data";
+import { Roles } from "@/constant/data";
 
 export const FetchUseByServiceAPI = async (serviceId: string) => {
    const res = await api.get(
@@ -26,3 +27,14 @@ export const GetBookingServiceAPI = async () => {
 
    return res.data;
 }
+
+export const switchRoleApi = async (
+   role: Roles
+) => {
+   const response = await api.patch(
+      API_ENDPOINTS.USER.SWITCH,
+      { role },
+   );
+
+   return response.data;
+};

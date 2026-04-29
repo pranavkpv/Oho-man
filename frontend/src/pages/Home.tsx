@@ -1,36 +1,108 @@
 import Navbar from "@/components/shared/Navbar";
 import { useState } from "react";
-import { useServices } from "@/hooks/useServices";
-import { useNavigate } from "react-router-dom";
+import { switchRoleApi } from "@/api/user.service";
+import { jwtDecode } from "jwt-decode";
+import {
+  getAccessToken,
+  setAccessToken
+} from "@/utils/token";
+import ServicesList from "./ServiceList";
+import ProviderDashboard from "./Provider";
+
+
+type Role = "user" | "provider";
+
+type TokenPayload = {
+  userId: string;
+  role: string[];
+  activeRole: Role;
+};
 
 export default function HomePage() {
-  const [activeRole, setActiveRole] = useState<"user" | "provider">("user");
-  const [shouldFetchServices, setShouldFetchServices] = useState(true);
-  const navigate = useNavigate();
 
-  const {
-    services,
-    loading,
-    error,
-  } = useServices(shouldFetchServices);
+  const getInitialRole = (): Role => {
 
-  const handleSwitch = () => {
-    setActiveRole((prev) =>
-      prev === "user" ? "provider" : "user"
-    );
+    try {
+
+      const token =
+        getAccessToken();
+
+      if (!token) {
+        return "user";
+      }
+
+      const decoded =
+        jwtDecode<TokenPayload>(token);
+
+      return decoded.activeRole || "user";
+
+    } catch {
+
+      return "user";
+
+    }
+
   };
 
-  const handleMenuClick = (menu: string) => {
-    if (menu === "Services") {
-      setShouldFetchServices(true);
+  const [activeRole, setActiveRole] =
+    useState<Role>(getInitialRole);
+
+  const [switching, setSwitching] =
+    useState(false);
+
+
+  const handleSwitch = async () => {
+
+    if (switching) return;
+
+    try {
+
+      setSwitching(true);
+
+      const nextRole =
+        activeRole === "user"
+          ? "provider"
+          : "user";
+
+      const data =
+        await switchRoleApi(nextRole);
+
+      setAccessToken(
+        data.data.accessToken
+      );
+
+      setActiveRole(
+        data.data.activeRole
+      );
+
+    } catch (error) {
+
+      console.error(
+        "Role switch failed",
+        error
+      );
+
+    } finally {
+
+      setSwitching(false);
+
     }
-    if (menu === "My Bookings") {
-      navigate("/bookings");
-    }
+
   };
+
+
+  const handleMenuClick = (
+    menu: string
+  ) => {
+
+    console.log(menu);
+
+  };
+
 
   return (
     <div className="min-h-screen">
+
       <Navbar
         activeRole={activeRole}
         role={["user", "provider"]}
@@ -38,33 +110,14 @@ export default function HomePage() {
         onMenuClick={handleMenuClick}
       />
 
-      <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-        {loading && <p>Loading services...</p>}
+      {activeRole === "user" && (
+        <ServicesList />
+      )}
 
-        {error && <p className="text-red-500">{error}</p>}
+      {activeRole === "provider" && (
+        <ProviderDashboard />
+      )}
 
-        {services?.map((service) => (
-          <div
-            key={service._id.toString()}
-            onClick={() => navigate(`/users/${ service._id }`)}
-            className="border rounded-lg p-4 shadow-sm hover:shadow-md transition cursor-pointer"
-          >
-            <img
-              src={service.image}
-              alt={service.serviceName}
-              className="w-full h-40 object-cover rounded-md"
-            />
-
-            <h2 className="text-lg font-semibold mt-2">
-              {service.serviceName}
-            </h2>
-
-            <p className="text-muted-foreground mt-1">
-              💰 ₹{service.price}
-            </p>
-          </div>
-        ))}
-      </div>
     </div>
   );
 }

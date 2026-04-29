@@ -1,5 +1,3 @@
-import { INVALID } from "zod/v3";
-
 export const MESSAGE ={
    REGISTER:{
       SUCCESS:"Registered successfully"
@@ -8,6 +6,10 @@ export const MESSAGE ={
       EXIST:"User Exist",
       SHORT:"Username must be at least 2 characters",
       NOTFOUND:"User not found",
+      SAMEROLE:"Already in this role",
+      INVALID_ROLE_TRANSACTION:"Invalid role transition",
+      INVALID_ROLE:"Invalid role",
+      SUCCESS_ROLE_SWITCH:"Role switched successfully"
    },
    SERVICE:{
       LIST:"Services listed successfully",

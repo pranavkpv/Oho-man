@@ -21,3 +21,5 @@ export const PROVIDER_MENU = [
   "Switch to User",
   "Active"
 ];
+
+export type Roles = "user" | "provider"

@@ -26,4 +26,19 @@ export const userRepository = {
       },
     });
   },
+
+  updateActiveRole: async (
+    userId: string,
+    activeRole: string
+  ) => {
+    return userModel.findByIdAndUpdate(
+      userId,
+      {
+        activeRole
+      },
+      {
+        new: true
+      }
+    );
+  }
 };
