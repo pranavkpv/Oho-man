@@ -9,3 +9,11 @@ export enum ROLE {
  USER='user',
  PROVIDER='provider'
 }
+
+export enum SERVICESTATUS {
+   PENDING="pending",
+   PROGRESS="inprogress",
+   COMPLETE="completed"
+
+}
+

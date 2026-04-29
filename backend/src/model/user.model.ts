@@ -3,11 +3,19 @@ import { ROLE } from '../constant/enum';
 
 const userSchema = new mongoose.Schema({
   username: {
-    type:String,
-    required:true
+    type: String,
+    required: true
   },
-  email: { type: String, unique: true },
-  phonenumber: String,
+  email: {
+    required: true,
+    type: String,
+    unique: true
+  },
+  phonenumber: {
+    required: true,
+    type: String,
+    unique: true
+  },
   password: {
     type: String,
     required: true
@@ -17,10 +25,22 @@ const userSchema = new mongoose.Schema({
     enum: Object.values(ROLE),
     default: ROLE.USER
   },
+  activeRole: {
+    type: String,
+    enum: [ROLE.USER, ROLE.PROVIDER],
+    default: ROLE.USER
+  },
   serviceIds: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Service'
-  }]
+  }],
+  active: {
+    type: Boolean,
+    default: false
+  },
+  image:{
+    type:String
+  }
 });
 
 export default mongoose.model(

@@ -11,7 +11,8 @@ export const MESSAGE ={
    },
    SERVICE:{
       LIST:"Services listed successfully",
-      REQUIRED:"Service provider must select at least one service"
+      REQUIRED:"Service provider must select at least one service",
+      NOTFOUND:"Service not found"
    },
    PASSWORD:{
       NOTMATCH:"Passwords do not match",
@@ -26,5 +27,8 @@ export const MESSAGE ={
    LOGIN:{
       SUCCESS:"Login successfully",
       INVALIDCREDENTIAL:"Invalid credentia;"
+   },
+   BOOKING:{
+      CREATED:"Booking created successfully"
    }
 }

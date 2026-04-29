@@ -1,22 +1,29 @@
-import { registerData } from "../dto/request";
+import mongoose from "mongoose";
 import userModel from "../model/user.model";
+import { registerData } from "../dto/request";
 
+export const userRepository = {
+  // FIND BY EMAIL
+  findByEmail: async (email: string) => {
+    return await userModel.findOne({ email });
+  },
 
-class AuthRepository {
+  // CREATE USER
+  createUser: async (data: registerData) => {
+    return await userModel.create(data);
+  },
 
-   findByEmail(email: string) {
-      return userModel.findOne({ email });
-   }
+  // GET USER BY EMAIL (same as findByEmail, keep one if possible)
+  findUserByEmail: async (email: string) => {
+    return await userModel.findOne({ email });
+  },
 
-   createUser(data: registerData) {
-      return userModel.create(data);
-   }
-
-   findUserByEmail(email: string) {
-      return userModel.findOne({ email });
-   }
-
-
-}
-
-export default new AuthRepository();
+  // FIND USERS BY SERVICE ID
+  findUsersByServiceId: async (serviceId: string) => {
+    return await userModel.find({
+      serviceIds: {
+        $in: [new mongoose.Types.ObjectId(serviceId)],
+      },
+    });
+  },
+};

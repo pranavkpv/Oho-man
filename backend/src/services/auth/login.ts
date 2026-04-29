@@ -1,16 +1,15 @@
-import bcrypt from "bcryptjs";
 import { ApiError } from "../../utils/ApiError";
-import authRepository from "../../repository/auth.repository";
 import { STATUS_CODE } from "../../constant/enum";
 import { MESSAGE } from "../../constant/messages";
 import { comparePassword } from "../../utils/password.helper";
 import { createAccessToken, createRefreshToken } from "../../utils/jwt";
+import { userRepository } from "../../repository/auth.repository";
 
 export const login = async (data: {
   email: string;
   password: string;
 }) => {
-  const user = await authRepository.findUserByEmail(data.email);
+  const user = await userRepository.findUserByEmail(data.email);
 
   if (!user) {
     throw new ApiError(STATUS_CODE.BAD_REQUEST, MESSAGE.USER.NOTFOUND);
@@ -27,7 +26,8 @@ export const login = async (data: {
 
   const payload = {
     userId: user._id.toString(),
-    role: user.role
+    role: user.role,
+    activeRole: user.activeRole
   };
 
   const accessToken = createAccessToken(payload);
