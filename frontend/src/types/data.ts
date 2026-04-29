@@ -8,14 +8,24 @@ export interface ServiceType {
 export interface registrationData {
    username: string
    email: string
-   phonenumber:string
+   phonenumber: string
    password: string
    confirmPassword: string
    isServiceProvider: boolean
    serviceIds?: string[]
 }
 
-export interface loginData{
-   email:string
-   password:string
+export interface loginData {
+   email: string
+   password: string
+}
+
+export type TokenPayload = {
+   role: ("user" | "provider")[];
+   activeRole: "user" | "provider";
+};
+
+export interface bookingData {
+   serviceId: string,
+   providerId: string,
 }

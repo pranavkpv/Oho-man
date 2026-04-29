@@ -4,10 +4,13 @@ import { Button } from "@/components/ui/button";
 import { useLogin } from "@/hooks/useLogin";
 import AppInput from "@/components/shared/AppInput";
 import { loginSchema, LoginSchema } from "@/validation/loginSchema";
+import { setAccessToken } from "@/utils/token";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
 
   const { login, loading, error } = useLogin();
+  const Navigate = useNavigate()
 
   const {
     register,
@@ -20,8 +23,9 @@ export default function Login() {
   const onSubmit = async (data: LoginSchema) => {
     try {
       const res = await login(data);
-      console.log("Login Success:", res);
+      setAccessToken(res.data.accessToken)
       alert("Login successful!");
+      Navigate('/home')
     } catch (error) {
       console.log("Login failed");
     }
