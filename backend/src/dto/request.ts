@@ -8,3 +8,11 @@ export interface registerData {
    serviceIds?: string[]
    role?: string[]
 }
+
+export interface bookingDataRepo {
+   userId:string
+   serviceId:string
+   providerId:string
+   amount:number
+   status:string
+}

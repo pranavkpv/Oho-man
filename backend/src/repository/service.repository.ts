@@ -1,13 +1,13 @@
 import serviceModel from "../model/service.model";
 
-class ServiceRepository{
+export const serviceRepository = {
+   // GET ALL SERVICES
+   getAllServices: async () => {
+      return await serviceModel.find({});
+   },
 
- getAllServices(){
-  return serviceModel.find(
-   {}
-  );
- }
-
-}
-
-export default new ServiceRepository();
+   // GET SERVICE BY ID
+   getServiceById: async (serviceId: string) => {
+      return await serviceModel.findById(serviceId);
+   },
+};
