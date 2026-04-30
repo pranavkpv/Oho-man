@@ -1,5 +1,4 @@
 import * as React from "react"
-
 import { cn } from "@/lib/utils"
 
 function Input({ className, type, ...props }: React.ComponentProps<"input">) {
@@ -8,7 +7,20 @@ function Input({ className, type, ...props }: React.ComponentProps<"input">) {
       type={type}
       data-slot="input"
       className={cn(
-        "h-8 w-full min-w-0 rounded-lg border border-input bg-transparent px-2.5 py-1 text-base transition-colors outline-none file:inline-flex file:h-6 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-input/50 disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 md:text-sm dark:bg-input/30 dark:disabled:bg-input/80 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40",
+        // Base
+        "h-11 w-full min-w-0 rounded-xl border-2 border-stone-200 bg-stone-50 px-4 py-2 text-sm text-stone-800 font-medium transition-all duration-200 outline-none",
+        // Placeholder
+        "placeholder:text-stone-300 placeholder:font-normal",
+        // Hover
+        "hover:border-stone-300",
+        // Focus
+        "focus-visible:border-amber-400 focus-visible:bg-white focus-visible:ring-2 focus-visible:ring-amber-100",
+        // File input
+        "file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-semibold file:text-stone-600",
+        // Disabled
+        "disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-stone-100 disabled:opacity-50 disabled:text-stone-400",
+        // Invalid
+        "aria-invalid:border-red-300 aria-invalid:bg-red-50/40 aria-invalid:focus-visible:border-red-400 aria-invalid:focus-visible:ring-red-100",
         className
       )}
       {...props}

@@ -12,7 +12,8 @@ export const getUserByServiceIdController = async (
 ) => {
    try {
       const serviceId = req.params.serviceId as string;
-      const data = await getAllUserByServiceId(serviceId);
+      const userId = (req as any).user.userId
+      const data = await getAllUserByServiceId(serviceId,userId);
       return ApiResponse.success<getUserData[]>(
          res,
          STATUS_CODE.OK,

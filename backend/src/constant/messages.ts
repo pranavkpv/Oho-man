@@ -47,5 +47,8 @@ export const MESSAGE = {
    },
    STATUS:{
       UPDATE:"status updated successfully"
+   },
+   TOKEN:{
+      NO:"No refresh token"
    }
 }

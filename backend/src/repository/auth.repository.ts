@@ -19,8 +19,9 @@ export const userRepository = {
   },
 
   // FIND USERS BY SERVICE ID
-  findUsersByServiceId: async (serviceId: string) => {
+  findUsersByServiceId: async (serviceId: string,userId:string) => {
     return await userModel.find({
+      _id:{$ne:userId},
       serviceIds: {
         $in: [new mongoose.Types.ObjectId(serviceId)],
       },

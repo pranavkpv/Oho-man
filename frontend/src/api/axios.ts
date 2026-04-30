@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getAccessToken, removeAccessToken } from "../utils/token";
+import { getAccessToken, removeAccessToken, setAccessToken } from "../utils/token";
 import env from "../config/env";
 
 
@@ -27,16 +27,38 @@ api.interceptors.request.use(
 );
 
 api.interceptors.response.use(
-   (response) => response,
-   async (error) => {
-      if (
-         error.response?.status === 401
-      ) {
-         removeAccessToken();
-         window.location.href = "/login";
+  (res) => res,
+  async (error) => {
+    const originalRequest = error.config;
+
+    // if access token expired / missing
+    if (
+      error.response?.status === 401 &&
+      !originalRequest._retry
+    ) {
+      originalRequest._retry = true;
+
+      try {
+        const res = await api.post("/auth/refresh-token");
+
+        const newAccessToken = res.data.accessToken;
+
+        setAccessToken(newAccessToken);
+
+        originalRequest.headers.Authorization =
+          `Bearer ${newAccessToken}`;
+
+        return api(originalRequest);
+      } catch (err) {
+        // refresh failed → logout
+        localStorage.removeItem("accessToken");
+        window.location.href = "/login";
       }
-      return Promise.reject(error);
-   }
+    }
+
+    return Promise.reject(error);
+  }
 );
 
 export default api;
+
