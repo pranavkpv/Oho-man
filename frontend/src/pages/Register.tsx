@@ -12,6 +12,7 @@ import { useServices } from '@/hooks/useServices';
 import { useRegister } from '@/hooks/useRegister';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
+import toast from 'react-hot-toast';
 
 export default function Register() {
   const [isProvider, setIsProvider] = useState(false);
@@ -40,7 +41,9 @@ export default function Register() {
       serviceIds: selectedServices,
     };
     const success = await registerUser(payload);
-    if (success) console.log('Registered successfully');
+    if (success) {
+      toast.success('Registered successfully');
+    }
   };
 
   return (
@@ -77,7 +80,7 @@ export default function Register() {
               {/* Fields */}
               <div className="space-y-1.5">
                 <AppInput
-                label="username"
+                  label="username"
                   name="username"
                   placeholder="Enter username"
                   register={register}
@@ -87,7 +90,7 @@ export default function Register() {
 
               <div className="space-y-1.5">
                 <AppInput
-                label ="email"
+                  label="email"
                   name="email"
                   placeholder="you@example.com"
                   register={register}
@@ -97,7 +100,7 @@ export default function Register() {
 
               <div className="space-y-1.5">
                 <AppInput
-                label="phonenumber"
+                  label="phonenumber"
                   name="phonenumber"
                   placeholder="+91 00000 00000"
                   register={register}
@@ -108,7 +111,7 @@ export default function Register() {
               <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1.5">
                   <AppInput
-                  label="password"
+                    label="password"
                     name="password"
                     type="password"
                     placeholder="••••••••"
@@ -119,7 +122,7 @@ export default function Register() {
                 <div className="space-y-1.5">
 
                   <AppInput
-                  label="confirmPassword"
+                    label="confirmPassword"
                     name="confirmPassword"
                     type="password"
                     placeholder="••••••••"
@@ -131,14 +134,13 @@ export default function Register() {
 
               {/* Provider toggle */}
               <Label
-                className={`flex items-center gap-3 p-4 rounded-2xl border-2 cursor-pointer transition-all duration-200 ${
-                  isProvider
+                className={`flex items-center gap-3 p-4 rounded-2xl border-2 cursor-pointer transition-all duration-200 ${ isProvider
                     ? 'border-amber-300 bg-amber-50/60'
                     : 'border-stone-100 bg-stone-50/60 hover:border-stone-200 hover:bg-stone-50'
-                }`}
+                  }`}
               >
-                <div className={`relative w-10 h-6 rounded-full transition-all duration-300 ${isProvider ? 'bg-gradient-to-r from-amber-400 to-orange-500' : 'bg-stone-200'}`}>
-                  <div className={`absolute top-1 w-4 h-4 rounded-full bg-white shadow-sm transition-all duration-300 ${isProvider ? 'left-5' : 'left-1'}`} />
+                <div className={`relative w-10 h-6 rounded-full transition-all duration-300 ${ isProvider ? 'bg-gradient-to-r from-amber-400 to-orange-500' : 'bg-stone-200' }`}>
+                  <div className={`absolute top-1 w-4 h-4 rounded-full bg-white shadow-sm transition-all duration-300 ${ isProvider ? 'left-5' : 'left-1' }`} />
                 </div>
                 <Input
                   type="checkbox"
@@ -150,7 +152,7 @@ export default function Register() {
                   className="sr-only"
                 />
                 <div>
-                  <p className={`text-sm font-semibold transition-colors ${isProvider ? 'text-amber-700' : 'text-stone-600'}`}>
+                  <p className={`text-sm font-semibold transition-colors ${ isProvider ? 'text-amber-700' : 'text-stone-600' }`}>
                     Register as Service Provider
                   </p>
                   <p className="text-xs text-stone-400 mt-0.5">

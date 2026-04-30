@@ -6,6 +6,7 @@ import AppInput from "@/components/shared/AppInput";
 import { loginSchema, LoginSchema } from "@/validation/loginSchema";
 import { setAccessToken } from "@/utils/token";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export default function Login() {
   const { login, loading, error } = useLogin();
@@ -23,7 +24,7 @@ export default function Login() {
     try {
       const res = await login(data);
       setAccessToken(res.data.accessToken);
-      alert("Login successful!");
+      toast.success("Login successful!");
       Navigate("/home");
     } catch (error) {
       console.log("Login failed");

@@ -1,4 +1,3 @@
-import jwt from "jsonwebtoken";
 import { createAccessToken, decodeToken } from "../../utils/jwt";
 
 export const refreshTokenService = async (refreshToken: string) => {

@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useUsersByService } from "@/hooks/useUsersByService";
 import { useBooking } from "@/hooks/useBooking";
 import StarView from "@/components/shared/StarView";
+import toast from "react-hot-toast";
 
 export default function UserList() {
   const { serviceId } = useParams();
@@ -26,7 +27,7 @@ export default function UserList() {
     if (!selectedUser || !serviceId) return;
     try {
       await bookService({ serviceId, providerId: selectedUser._id });
-      alert("Booking successful!");
+      toast.success("Booking successful!");
       Navigate("/home");
       closeModal();
     } catch {

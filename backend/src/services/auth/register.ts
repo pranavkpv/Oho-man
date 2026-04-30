@@ -1,14 +1,13 @@
-import bcrypt from 'bcryptjs';
-import authRepository from '../../repository/auth.repository';
 import { ROLE, STATUS_CODE } from '../../constant/enum';
 import { MESSAGE } from '../../constant/messages';
 import { ApiError } from '../../utils/ApiError';
 import { registerData } from '../../dto/request';
 import { hashPassword } from '../../utils/password.helper';
+import { userRepository } from '../../repository/auth.repository';
 
 export const register = async (data: registerData) => {
    const exists =
-      await authRepository.findByEmail(
+      await userRepository.findByEmail(
          data.email
       );
    if (exists) {
@@ -19,7 +18,7 @@ export const register = async (data: registerData) => {
    }
   const hashed = await hashPassword(data.password);
 
-   return authRepository.createUser({
+   return userRepository.createUser({
       ...data,
       password: hashed,
       role: data.isServiceProvider
