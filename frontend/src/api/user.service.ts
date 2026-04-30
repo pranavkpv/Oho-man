@@ -38,3 +38,11 @@ export const switchRoleApi = async (
 
    return response.data;
 };
+
+export const addRatingApi = (providerId: string, rating: number,bookingId:string) => {
+  return api.post("/user/add-rating", {
+    providerId,
+    rating,
+    bookingId
+  });
+};

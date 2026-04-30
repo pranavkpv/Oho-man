@@ -1,3 +1,4 @@
+import StarRating from "@/components/shared/StarRating";
 import { useBookingData } from "@/hooks/useBookingData";
 import { useState } from "react";
 
@@ -29,7 +30,19 @@ export default function MyBookings() {
       <p className="text-sm text-gray-500">
         Amount: ₹{b.amount}
       </p>
-      <p>Date : {b.createdAt}</p>
+
+      <p>Date: {b.createdAt}</p>
+
+      {/* ⭐ ONLY FOR COMPLETED */}
+      {b.status === "completed" && (
+        <div className="pt-2">
+          <StarRating
+            providerId={b.providerId?._id}
+            bookingId={b._id}
+            initialRating={b.rating}
+          />
+        </div>
+      )}
     </div>
   );
 

@@ -36,7 +36,8 @@ export const MESSAGE = {
       NOTFOUND:"Booking not found",
       NOTCHANGE:"Completed booking cannot be changed",
       REUIRED:"Booking ID and status are required",
-      UPDATESTATUS:"Booking status updated successfully"
+      UPDATESTATUS:"Booking status updated successfully",
+      RATING:"Rating submitted successfully"
    },
    JOB: {
       FETCH: "Jobs fetched successfully"

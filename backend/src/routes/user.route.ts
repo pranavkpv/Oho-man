@@ -7,6 +7,7 @@ import { ROLE } from '../constant/enum';
 import { getUserBookingsController } from '../controller.ts/user/getUserBooking';
 import { verifyToken } from '../middleware/verifyToken.middleware';
 import { switchRoleController } from '../controller.ts/user/switchRole';
+import { addRatingController } from '../controller.ts/user/addRating';
 
 const router = Router();
 
@@ -35,5 +36,7 @@ router.get(
    API.USER_BY_SERVICE,
    getUserByServiceIdController
 );
+
+router.post("/add-rating", addRatingController);
 
 export default router;

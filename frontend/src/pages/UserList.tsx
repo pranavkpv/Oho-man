@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useUsersByService } from "@/hooks/useUsersByService";
 import { useBooking } from "@/hooks/useBooking";
+import StarView from "@/components/shared/StarView";
 
 export default function UserList() {
   const { serviceId } = useParams();
@@ -29,8 +30,8 @@ export default function UserList() {
         serviceId,
         providerId: selectedUser._id
       });
-  
-     
+
+
       alert("Booking successful!");
       Navigate('/home')
       closeModal();
@@ -61,7 +62,7 @@ export default function UserList() {
           >
             <img
               src={user.image}
-              alt={`${user.username} profile image`}
+              alt={`${ user.username } profile image`}
               className="w-full h-60 object-contain bg-gray-100"
             />
 
@@ -74,16 +75,20 @@ export default function UserList() {
                 📧 {user.email}
               </p>
 
+              <div className="mb-2">
+                <StarView rating={user.rating} />
+              </div>
+
+
               <p className="text-sm text-gray-500">
                 📞 {user.phonenumber}
               </p>
 
               <span
-                className={`inline-block px-3 py-1 text-xs font-semibold rounded-full ${
-                  user.active
+                className={`inline-block px-3 py-1 text-xs font-semibold rounded-full ${ user.active
                     ? "bg-green-100 text-green-700"
                     : "bg-red-100 text-red-600"
-                }`}
+                  }`}
               >
                 {user.active ? "Available" : "Not Available"}
               </span>
@@ -91,11 +96,10 @@ export default function UserList() {
               <button
                 onClick={() => handleBookNow(user)}
                 disabled={!user.active}
-                className={`w-full mt-3 py-2 rounded-lg font-semibold ${
-                  user.active
+                className={`w-full mt-3 py-2 rounded-lg font-semibold ${ user.active
                     ? "bg-blue-600 text-white hover:bg-blue-700"
                     : "bg-gray-300 text-gray-600 cursor-not-allowed"
-                }`}
+                  }`}
               >
                 Book Now
               </button>

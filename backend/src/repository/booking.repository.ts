@@ -7,9 +7,9 @@ export const bookingRepository = {
   createBooking: async (data: bookingDataRepo) => {
     return await bookingModel.create(data);
   },
+
   // GET BOOKINGS BY USER ID
   getBookingsByUserId: async (userId: string) => {
-
     if (!mongoose.Types.ObjectId.isValid(userId)) {
       throw new Error("Invalid userId");
     }
@@ -23,34 +23,52 @@ export const bookingRepository = {
       .sort({ createdAt: -1 })
       .lean();
   },
-  //GET BOOKING BY PROVIDERID
+
+  // GET BOOKING BY PROVIDER ID
   getProviderBookings: async (providerId: string) => {
-    return await bookingModel.find({
-      providerId
-    })
+    if (!mongoose.Types.ObjectId.isValid(providerId)) {
+      throw new Error("Invalid providerId");
+    }
+
+    return await bookingModel
+      .find({
+        providerId: new mongoose.Types.ObjectId(providerId),
+      })
       .populate({
         path: "serviceId",
-        select: "_id serviceName"
+        select: "_id serviceName",
       })
       .populate({
         path: "userId",
-        select: "_id username email phonenumber"
+        select: "_id username email phonenumber",
       })
       .sort({ createdAt: -1 });
   },
-  //GET BOOKING DATA BY ID
+
+  // GET BOOKING BY ID
   findById: async (bookingId: string) => {
     return await bookingModel.findById(bookingId);
   },
-  //UPDATE STATUS
-  updateStatus: async (
-    bookingId: string,
-    status: BookingStatus
-  ) => {
+
+  // UPDATE STATUS
+  updateStatus: async (bookingId: string, status: BookingStatus) => {
     return await bookingModel.findByIdAndUpdate(
       bookingId,
       { status },
       { new: true }
     );
-  }
+  },
+
+  //  ADD RATING IN BOOKING (FIXED)
+  addRatingRepo: async (bookingId: string, rating: number) => {
+    if (!mongoose.Types.ObjectId.isValid(bookingId)) {
+      throw new Error("Invalid bookingId");
+    }
+
+    return await bookingModel.findByIdAndUpdate(
+      bookingId,
+      { rating },
+      { new: true }
+    );
+  },
 };
