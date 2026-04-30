@@ -40,7 +40,8 @@ export const switchRole = async (
    const payload = {
       userId: user._id.toString(),
       role: user.role,
-      activeRole: user.activeRole
+      activeRole: user.activeRole,
+      active:user.active
    };
 
    const accessToken =

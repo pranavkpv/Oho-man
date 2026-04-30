@@ -2,13 +2,13 @@ import Navbar from "@/components/shared/Navbar";
 import { useState } from "react";
 import { switchRoleApi } from "@/api/user.service";
 import { jwtDecode } from "jwt-decode";
-import {
-  getAccessToken,
-  setAccessToken
-} from "@/utils/token";
+import { getAccessToken, setAccessToken } from "@/utils/token";
+
 import ServicesList from "./ServiceList";
 import JobList from "./JobList";
-
+import MyWorkList from "./MyWork";
+import MyBookings from "./Mybooking";
+import { useActiveToggle } from "@/hooks/useActiveToggle";
 
 type Role = "user" | "provider";
 
@@ -16,89 +16,82 @@ type TokenPayload = {
   userId: string;
   role: string[];
   activeRole: Role;
+  active: boolean;
 };
 
+const getRoleFromToken = (): Role => {
+  try {
+    const token = getAccessToken();
+    if (!token) return "user";
+
+    const decoded = jwtDecode<TokenPayload>(token);
+    return decoded.activeRole || "user";
+  } catch {
+    return "user";
+  }
+};
+
+const getDefaultMenu = (role: Role) =>
+  role === "user" ? "Services" : "Jobs";
+
 export default function HomePage() {
+  const [activeRole, setActiveRole] = useState<Role>(() => getRoleFromToken());
+  const [selectedMenu, setSelectedMenu] = useState<string>(() =>
+    getDefaultMenu(getRoleFromToken())
+  );
 
-  const getInitialRole = (): Role => {
-
+  const getInitialActive = (): boolean => {
     try {
+      const token = getAccessToken();
+      if (!token) return false;
 
-      const token =
-        getAccessToken();
+      const decoded = jwtDecode<TokenPayload>(token);
 
-      if (!token) {
-        return "user";
-      }
-
-      const decoded =
-        jwtDecode<TokenPayload>(token);
-
-      return decoded.activeRole || "user";
-
+      return decoded.active ?? false;
     } catch {
-
-      return "user";
-
+      return false;
     }
-
   };
 
-  const [activeRole, setActiveRole] =
-    useState<Role>(getInitialRole);
+  const { active, toggleActive } = useActiveToggle(getInitialActive());
 
-  const [switching, setSwitching] =
-    useState(false);
-
+  const [switching, setSwitching] = useState(false);
 
   const handleSwitch = async () => {
-
     if (switching) return;
 
     try {
-
       setSwitching(true);
 
-      const nextRole =
-        activeRole === "user"
-          ? "provider"
-          : "user";
+      const nextRole: Role =
+        activeRole === "user" ? "provider" : "user";
 
-      const data =
-        await switchRoleApi(nextRole);
+      const res = await switchRoleApi(nextRole);
 
-      setAccessToken(
-        data.data.accessToken
-      );
+      const data = res?.data;
 
-      setActiveRole(
-        data.data.activeRole
-      );
+      const newRole = data?.activeRole;
 
-    } catch (error) {
+      // ✅ update token safely
+      if (data?.accessToken) {
+        setAccessToken(data.accessToken);
+      }
 
-      console.error(
-        "Role switch failed",
-        error
-      );
+      if (newRole) {
+        setActiveRole(newRole);
+        setSelectedMenu(getDefaultMenu(newRole));
+      }
 
+    } catch (err) {
+      console.error("Role switch failed", err);
     } finally {
-
       setSwitching(false);
-
     }
-
   };
 
-
-  const handleMenuClick = (
-    menu: string
-  ) => {
-
-    console.log(menu);
-
+  const handleMenuClick = (menu: string) => {
+    setSelectedMenu(menu);
   };
-
 
   return (
     <div className="min-h-screen">
@@ -108,16 +101,25 @@ export default function HomePage() {
         role={["user", "provider"]}
         onSwitch={handleSwitch}
         onMenuClick={handleMenuClick}
+        active={active}
+        onActiveToggle={toggleActive}
       />
 
-      {activeRole === "user" && (
+      {activeRole === "user" && selectedMenu === "Services" && (
         <ServicesList />
       )}
 
-      {activeRole === "provider" && (
+      {activeRole === "provider" && selectedMenu === "Jobs" && (
         <JobList />
       )}
 
+      {activeRole === "provider" && selectedMenu === "My work" && (
+        <MyWorkList />
+      )}
+
+      {activeRole === "user" && selectedMenu === "My Bookings" && (
+        <MyBookings />
+      )}
     </div>
   );
 }

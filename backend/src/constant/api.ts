@@ -8,5 +8,7 @@ export const API = {
    BOOK:'/book',
    SWITCH_ROLE:'/switch',
    PROVIDER_BASE:"/api/provider",
-   JOB:"/job"
+   JOB:"/job",
+   MYWORK:"/mywork",
+   ACTIVE:"/active-status"
 }

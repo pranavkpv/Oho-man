@@ -53,6 +53,17 @@ export const userRepository = {
           "_id serviceName image price"
       });
 
+  },
+
+  updateActiveStatus: async (
+    userId: string,
+    active: boolean
+  ) => {
+    return await userModel.findByIdAndUpdate(
+      userId,
+      { active },
+      { new: true }
+    );
   }
 
 

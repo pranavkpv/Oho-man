@@ -38,8 +38,12 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
-  image:{
-    type:String
+  image: {
+    type: String
+  },
+  rating: {
+    type: Number,
+    default: 0
   }
 });
 

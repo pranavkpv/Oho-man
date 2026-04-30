@@ -10,6 +10,9 @@ export const API_ENDPOINTS = {
     SWITCH:'/user/switch'
   },
   PROVIDER:{
-    JOB:'/provider/job'
+    JOB:'/provider/job',
+    MYWORK:'/provider/mywork',
+    BOOKING:'/provider/book',
+    ACTIVE:'/provider/active-status'
   }
 } as const;

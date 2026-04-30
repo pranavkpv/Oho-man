@@ -32,9 +32,19 @@ export const MESSAGE = {
    },
    BOOKING: {
       CREATED: "Booking created successfully",
-      LIST: "Booking data listed successfully"
+      LIST: "Booking data listed successfully",
+      NOTFOUND:"Booking not found",
+      NOTCHANGE:"Completed booking cannot be changed",
+      REUIRED:"Booking ID and status are required",
+      UPDATESTATUS:"Booking status updated successfully"
    },
    JOB: {
       FETCH: "Jobs fetched successfully"
+   },
+   WORK:{
+      FETCH:"Work fetched successfully"
+   },
+   STATUS:{
+      UPDATE:"status updated successfully"
    }
 }
