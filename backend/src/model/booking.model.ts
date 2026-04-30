@@ -9,6 +9,7 @@ export interface IBooking extends Document {
   userId: mongoose.Types.ObjectId;
   amount: number;
   status: BookingStatus;
+  rating:number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -40,6 +41,10 @@ const BookingSchema = new Schema<IBooking>(
       enum: [SERVICESTATUS.PENDING, SERVICESTATUS.PROGRESS, SERVICESTATUS.COMPLETE],
       default: SERVICESTATUS.PENDING,
     },
+    rating: {
+      type: Number,
+      default: 0
+    }
   },
   {
     timestamps: true,

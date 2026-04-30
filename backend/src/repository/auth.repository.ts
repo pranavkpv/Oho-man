@@ -19,11 +19,53 @@ export const userRepository = {
   },
 
   // FIND USERS BY SERVICE ID
-  findUsersByServiceId: async (serviceId: string) => {
+  findUsersByServiceId: async (serviceId: string,userId:string) => {
     return await userModel.find({
+      _id:{$ne:userId},
       serviceIds: {
         $in: [new mongoose.Types.ObjectId(serviceId)],
       },
     });
   },
+
+  updateActiveRole: async (
+    userId: string,
+    activeRole: string
+  ) => {
+    return userModel.findByIdAndUpdate(
+      userId,
+      {
+        activeRole
+      },
+      {
+        new: true
+      }
+    );
+  },
+
+  findUserWithServices: async (
+    userId: string
+  ) => {
+    return userModel
+      .findById(userId)
+      .populate({
+        path: "serviceIds",
+        select:
+          "_id serviceName image price"
+      });
+
+  },
+
+  updateActiveStatus: async (
+    userId: string,
+    active: boolean
+  ) => {
+    return await userModel.findByIdAndUpdate(
+      userId,
+      { active },
+      { new: true }
+    );
+  }
+
+
 };

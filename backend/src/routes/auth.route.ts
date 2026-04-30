@@ -3,6 +3,7 @@ import { API } from '../constant/api';
 import { registerController } from '../controller.ts/auth/register';
 import { getAllServicesController } from '../controller.ts/service/getService';
 import { loginController } from '../controller.ts/auth/login';
+import { refreshTokenController } from '../controller.ts/auth/refreshToken';
 
 const router = Router();
 
@@ -20,5 +21,7 @@ router.post(
    API.LOGIN,
    loginController
 );
+
+router.post("/refresh-token", refreshTokenController);
 
 export default router;
